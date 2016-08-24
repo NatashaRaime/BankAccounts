@@ -1,4 +1,8 @@
 *.gem
+.rbx
+.rvmrc
+.ruby-version
++.ruby-gemset
 *.rbc
 /.config
 /coverage/
