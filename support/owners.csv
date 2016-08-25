@@ -10,3 +10,11 @@
 23,Berry,Shirley,7 Kings Pass,Cleveland,Ohio
 24,King,Kevin,3499 Judy Center,Santa Monica,California
 25,Clark,Kathleen,72984 Chive Hill,New York City,New York
+
+
+ID - (Fixnum) a unique identifier for that Owner
+Last Name - (String) the owner's last name
+First Name - (String) the owner's first name
+Street Addess - (String) the owner's street address
+City - (String) the owner's city
+State - (String) the owner's state

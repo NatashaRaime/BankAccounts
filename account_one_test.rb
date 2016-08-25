@@ -1,6 +1,7 @@
+require_relative 'account_one'
+require_relative 'account_two'
 require 'colorize'
-require 'money'
-
+require 'csv'
 def test_withdrawl
   if balance - withdrawl(val) == 3
     return true

@@ -1,63 +1,56 @@
 require 'colorize'
-require 'money'
+require 'colorized_string'
+require 'csv'
 
 module Bank
   class Account
 
-    attr_accessor :name, :balance
+    attr_accessor :account_id, :balance
 
-    def initialize(name, balance, account_id = Random.rand(111111..999999), print = false)
-      @name = name
-      @balance = balance
-      @account_id = account_id
+      def initialize(balance, print)
+    #   account_id = Random.rand(111111..999999)
+       @accounts = accounts
+       @name = name
+       @balance = balance
 
-      if print
-        print_status
       end
 
-    end
+       def self.all
+        accounts = { }
+         CSV.read('support/accounts.csv').each do |line|
+          accounts[line[0]] = line[1..line.length]
+          #accounts[line[0]] = Account.new(line[0], " ", line[1],)
+         end
+        return accounts
+       end
 
-    def to_money # <= instance method
-    # in the line below, `total` is invoking the instance method above
-    @balance = "$" + sprintf("%0.02f", @balance / 100)
-    end
-
-    # def to_cash
-    #   @balance = "$" + sprintf("%0.02f", @balance / 100)
-    # end
-
-    def print_status
-    puts "Welcome #{ @name }, your new account number is: #{ @account_id }".colorize(:light_blue)
-    puts "Your current balance is:".colorize(:blue)
-    puts "#{ @balance }".colorize(:green)
-    end
-
-
-     def deposit(val)
-       @balance = @balance + val
-       puts @balance 
-       return @balance
-     end
-
-    def withdrawl(val)
-      if val > @balance
-        puts "We are unable to process your request at this time."
-      else
-       @balance = @balance - val
-       puts @balance
+      def self.find(id)
+        puts Bank::Account.all(id)
+        return Bank::Account.all(id)
       end
-      return @balance
-    end
+
+
+      def print_status
+        puts "Your current balance is: $#{ @balance }".colorize(:blue)
+        puts
+      end
+
+      def deposit(val)
+        @balance += val
+        puts "Thank you for your deposit in the amount of $#{val}".colorize(:blue)
+        puts "Updated Account Balance: $#{ @balance }".colorize(:blue)
+        return @balance
+      end
+
+      def withdrawl(val)
+        if val > @balance
+          puts "Your available balance is less than the requested amount.".colorize(:red)
+          puts "Your current balance is:$#{ @balance }".colorize(:blue)
+        else
+          @balance -= val
+          puts "Withdrawl successful, Your new balance is: $#{ @balance }".colorize(:blue)
+        end
+        return @balance
+      end
   end
-
-n = Account.new("natasha ewing", 2800)
-n.print_status
-puts @balance
-n.deposit(1800)
-puts @balance
-n.withdrawl(800)
-puts @balance
-n.withdrawl(7800)
-puts @balance
-
 end
