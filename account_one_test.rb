@@ -1,5 +1,8 @@
-require_relative 'account_one'
-require_relative 'account_two'
+require_relative 'owner'
+require_relative 'bank-details'
+require_relative 'checking'
+require_relative 'savings'
+
 require 'colorize'
 require 'csv'
 def test_withdrawl
@@ -8,12 +11,22 @@ def test_withdrawl
   end
 end
 
-def test_deposit(val)
-  if
-  balance + 3 == balance
-  return true
+def test_deposit
+  if deposit < 0
+    raise ArgumentError.new("nope")
   end
-    balance = (5.0)
-    balance.test_withdrawl(1)
-    balance.test_deposit(3)
 end
+
+def test_init
+  if Account.new.balance < 0
+    raise ArgumentError.new("money is required to bank here")
+  end
+end
+
+
+
+puts Bank::Owner.
+puts Bank::Account.find("id")
+puts Bank::Account.all
+puts Bank::Owner.addy_first
+puts Bank::Owner.find("1213")
