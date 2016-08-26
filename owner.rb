@@ -1,11 +1,7 @@
 require 'csv'
 
-class Owner
-  attr_accessor :account_id
-
-  def initialize(account_id)
-
-    Owner.new(@account_id)
+  class Owner
+  def initialize
   end
 
   def self.map
@@ -22,26 +18,18 @@ class Owner
       address[row[0]] = row[1..row.length]
       end
       return address
-
     end
+  end
 
-    def self.accounts
-      #accounts = [ ]
-      map.collect{ |x| x + address[x] }
+#here I am trying to use the collect method
+    # def self.accounts
+    #   #accounts = [ ]
+    #   map.collect{ |x| x + address[x] }
+      # return accounts
 
 
-      #accounts = { }
-      #map[index] << addy[index]
-      #map[index] << address[0..index.length]
-      #map[index]<<address[1..index.length]
-    end
-      return accounts
-end
-
-    puts Owner.map
-    puts
-    puts
-    puts Owner.addy
-    puts
-    puts
-    puts Owner.accounts
+    # puts Owner.map
+    # puts
+    # puts Owner.addy
+    # puts
+    # puts Owner.accounts

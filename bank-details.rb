@@ -3,16 +3,20 @@ require 'colorize'
 require 'csv'
 
 module Bank
+  BALANCE_MIN = 0
+  WITHDRAWL_FEE = 0
   class Account < Owner
-    BALANCE += 0
-    attr_accessor :id, :balance
 
-    def initialize(name, balance, id = Random.rand(111111..999999))
-      @name = name
+
+    attr_accessor :balance, :account_id
+
+    def initialize(balance)
       @balance = balance
+      @account_id = Random.rand(111111.999999)
     end
 
-    def self.all(id = line)
+
+    def self.all
       all_accounts = { }
       CSV.read('support/accounts.csv').each do |line|
         all_accounts[line[0]] = line[1..line.length]
@@ -22,14 +26,17 @@ module Bank
     end
 
     def self.find(id)
-      found = [ ]
-      found = all(id)
+      found = { }
+      CSV.read('support/accounts.csv').each do |i|
+        found[(id)] = i[1..i.length]
+      end
       puts found
       return found
     end
 
   def print_status
     puts "Your current balance is: $#{ @balance }".colorize(:blue)
+    puts "Hello, Your Account ID is #{@account_id}".colorize(:blue)
   end
 
   def deposit(val)
@@ -40,12 +47,7 @@ module Bank
   end
 
   def withdraw(val)
-    if val > @balance
-      raise ArgumentError.new "Your available balance is less than the requested amount.".colorize(:red)
-      puts
-      puts "Your current balance is:$#{ @balance }".colorize(:blue)
-      break
-    else
+    if @balance > val
       @balance -= val
       puts "Withdrawl successful, Your new balance is: $#{ @balance }".colorize(:blue)
     end
@@ -53,3 +55,10 @@ module Bank
   end
   end
 end
+
+natasha = Bank::Account.new(8000)
+natasha.deposit(500)
+natasha.withdraw(200)
+Bank::Account.find("1212")
+puts Owner.map
+puts Owner.addy 
